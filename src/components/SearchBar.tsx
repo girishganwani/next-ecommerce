@@ -7,7 +7,6 @@ const SearchBar = () => {
   const router = useRouter();
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(e.currentTarget);
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name') as string;
 
