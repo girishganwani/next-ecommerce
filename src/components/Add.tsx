@@ -2,13 +2,23 @@
 
 import { useState } from 'react';
 
-const Add = () => {
+const Add = ({
+  productId,
+  variantId,
+  stockNumber,
+}: {
+  productId: string;
+  variantId: string;
+  stockNumber: number;
+}) => {
   const [quantity, setQuantity] = useState(1);
 
-  const stock = 4; // for now it is temporary
+  // const stock = 4; // for now it is temporary
+
   const handleQuantity = (action: 'd' | 'i') => {
     if (action === 'd' && quantity > 1) setQuantity((prev) => prev - 1);
-    if (action === 'i' && quantity < stock) setQuantity((prev) => prev + 1);
+    if (action === 'i' && quantity < stockNumber)
+      setQuantity((prev) => prev + 1);
   };
   return (
     <div className="flex flex-col gap-4">
@@ -30,10 +40,16 @@ const Add = () => {
               +
             </button>
           </div>
-          <div className="text-xs">
-            Only <span className="text-orange-400">4 itmes</span> left!
-            <br /> Don't miss it
-          </div>
+
+          {stockNumber < 1 ? (
+            <div className="text-xs">Product is out of stock</div>
+          ) : (
+            <div className="text-xs">
+              Only <span className="text-orange-400">{stockNumber} itmes</span>
+              left!
+              <br /> Don't miss it
+            </div>
+          )}
         </div>
 
         <button className="w-36 text-sm rounded-3xl ring-1 ring-girishred text-girishred py-2 px-4 hover:bg-girishred hover:text-white disabled:cursor-not-allowed disabled:bg-pink-200 disabled:text-white disabled:ring-none">
